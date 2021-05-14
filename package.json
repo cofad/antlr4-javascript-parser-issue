@@ -7,11 +7,17 @@
     "fix-parser": ".\\node_modules\\.bin\\replace-in-file \"/let\\s_alt/g\" \"var _alt\" ./antlr4/JavaScriptParser.js --isRegex",
     "download-lexer-base": "curl https://raw.githubusercontent.com/antlr/grammars-v4/master/javascript/javascript/JavaScript/JavaScriptLexerBase.js > antlr4/JavaScriptLexerBase.js",
     "download-parser-base": "curl https://raw.githubusercontent.com/antlr/grammars-v4/master/javascript/javascript/JavaScript/JavaScriptParserBase.js > antlr4/JavaScriptParserBase.js",
-    "build-lexer": "java org.antlr.v4.Tool -Dlanguage=JavaScript antlr4/JavaScriptLexer.g4 -o antlr4",
-    "build-parser": "java org.antlr.v4.Tool -Dlanguage=JavaScript antlr4/JavaScriptParser.g4 -o antlr4",
-    "download-and-build": "npm run clean && npm run download-lexer && npm run download-parser && npm run download-lexer-base && npm run download-parser-base && npm run build-lexer && npm run build-parser",
-    "postinstall": "npm run download-and-build",
-    "start": "node test/test.cjs"
+    "download": "npm run download-lexer && npm run download-parser && npm run download-lexer-base && npm run download-parser-base",
+    "postinstall": "npm run clean && npm run download",
+    "start": "node test/test.cjs",
+    "build-lexer-linux": "java -jar /usr/local/lib/antlr-4.9.2-complete.jar -Dlanguage=JavaScript antlr4/JavaScriptLexer.g4",
+    "build-parser-linux": "java -jar /usr/local/lib/antlr-4.9.2-complete.jar -Dlanguage=JavaScript antlr4/JavaScriptParser.g4",
+    "build-antlr-linux": "npm run build-lexer-linux && npm run build-parser-linux",
+    "build-linux": "npm run build-antlr-linux",
+    "build-lexer-windows": "java org.antlr.v4.Tool -Dlanguage=JavaScript antlr4/JavaScriptLexer.g4 -o antlr4",
+    "build-parser-windows": "java org.antlr.v4.Tool -Dlanguage=JavaScript antlr4/JavaScriptParser.g4 -o antlr4",
+    "build-antlr-windows": "npm run build-lexer-windows && npm run build-parser-windows",
+    "build-windows": " npm run build-antlr-windows"
   },
   "dependencies": {
     "antlr4": "^4.9.2"
