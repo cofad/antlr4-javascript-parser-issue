@@ -1,0 +1,24 @@
+{
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rimraf antlr4 && mkdir antlr4",
+    "download-lexer": "curl https://raw.githubusercontent.com/antlr/grammars-v4/master/javascript/javascript/JavaScriptLexer.g4 > antlr4/JavaScriptLexer.g4",
+    "download-parser": "curl https://raw.githubusercontent.com/antlr/grammars-v4/master/javascript/javascript/JavaScriptParser.g4 > antlr4/JavaScriptParser.g4",
+    "fix-parser": ".\\node_modules\\.bin\\replace-in-file \"/let\\s_alt/g\" \"var _alt\" ./antlr4/JavaScriptParser.js --isRegex",
+    "download-lexer-base": "curl https://raw.githubusercontent.com/antlr/grammars-v4/master/javascript/javascript/JavaScript/JavaScriptLexerBase.js > antlr4/JavaScriptLexerBase.js",
+    "download-parser-base": "curl https://raw.githubusercontent.com/antlr/grammars-v4/master/javascript/javascript/JavaScript/JavaScriptParserBase.js > antlr4/JavaScriptParserBase.js",
+    "build-lexer": "java org.antlr.v4.Tool -Dlanguage=JavaScript antlr4/JavaScriptLexer.g4 -o antlr4",
+    "build-parser": "java org.antlr.v4.Tool -Dlanguage=JavaScript antlr4/JavaScriptParser.g4 -o antlr4",
+    "download-and-build": "npm run clean && npm run download-lexer && npm run download-parser && npm run download-lexer-base && npm run download-parser-base && npm run build-lexer && npm run build-parser",
+    "postinstall": "npm run download-and-build",
+    "start": "node test/test.cjs"
+  },
+  "dependencies": {
+    "antlr4": "^4.9.2"
+  },
+  "type": "module",
+  "devDependencies": {
+    "replace-in-file": "^6.2.0",
+    "rimraf": "^3.0.2"
+  }
+}
