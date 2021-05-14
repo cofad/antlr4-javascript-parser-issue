@@ -25,6 +25,7 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
+    - run: sudo curl https://www.antlr.org/download/antlr-4.9.2-complete.jar /usr/local/lib -o /usr/lib/local/antlr-4.9.2-complete.jar  
     - run: npm ci
     - run: npm run build-linux
     - run: npm start
